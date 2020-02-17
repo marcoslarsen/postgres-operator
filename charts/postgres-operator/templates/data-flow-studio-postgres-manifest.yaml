@@ -1,0 +1,22 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: data-flow-studio-postgres-cluster
+spec:
+  dockerImage: dataflowstudio-docker-dev-orl.repo.wal.eng.hitachivantara.com/data-flow-studio-postgres-db:1.0.1
+  teamId: "data-flow-studio"
+  volume:
+    size: 1Gi
+  numberOfInstances: 2
+  users:
+    hibernate:  # database owner
+    - superuser
+    - createdb
+    quartz:  # database owner
+    - superuser
+    - createdb
+  databases:
+    hibernate: hibernate
+    quartz: quartz
+  postgresql:
+    version: "11"
